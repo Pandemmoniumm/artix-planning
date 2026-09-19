@@ -1,0 +1,11 @@
+require("envariables")
+require("monitors")
+require("input")
+require("animations")
+require("winrules")
+require("misc")
+require("perms")
+require("~/.config/hypr/keybinds.lua")
+require("autostart")
+-- For Noctalia Color templates
+require("noctalia").apply_theme()
