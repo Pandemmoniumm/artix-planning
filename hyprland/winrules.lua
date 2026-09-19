@@ -58,7 +58,7 @@ hl.layer_rule({
 })
 
 --useful rules
-local suppressMaximizeRule = hl.window_rule({
+suppressMaximizeRule = hl.window_rule({
 	name = "suppress-maximize-events",
 	match = { class = ".*"},
 	
