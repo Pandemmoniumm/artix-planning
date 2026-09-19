@@ -1,9 +1,9 @@
 -- Define modifiers and default applications
-local mainMod = "SUPER"
-local terminal = "ghostty"
-local fileManager = "yazi"
-local ipc = "noctalia msg "
-local browser = "firefox"
+mainMod = "SUPER"
+terminal = "ghostty"
+fileManager = "yazi"
+ipc = "noctalia msg "
+browser = "firefox"
 
 --more precise resizing with use of submaps
 	-- Switch to a submap called `resize`.
