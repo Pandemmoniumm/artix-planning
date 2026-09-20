@@ -36,12 +36,8 @@ Include = /etc/pacman.d/cachyos-v3-mirrorlist
 Include = /etc/pacman.d/cachyos-v3-mirrorlist
 [cachyos-extra-v3]
 Include = /etc/pacman.d/cachyos-v3-mirrorlist
-echo "##
-## Artix Linux repository mirrorlist - Optimized for Cape Town, South Africa
-## Generated and sorted geographically for optimal routing in 2026
-##
-
-# Tier 1: Best Routing (Western & Southern Europe via Undersea Cables)
+cat << 'EOF' > /etc/pacman.d/mirrorlist
+Tier 1: Best Routing (Western & Southern Europe via Undersea Cables)
 Server = https://mirror.vinehost.net/artix-linux/$repo/os/$arch
 Server = https://ftp.crifo.org/artix/repos/$repo/os/$arch
 Server = https://artix.toret.fr/$repo/os/$arch
@@ -58,7 +54,6 @@ Server = https://mirror3.artixlinux.org/repos/$repo/os/$arch
 Server = https://tools.sphnet.in/mirror/artix/$repo/os/$arch
 Server = https://mirror.rabisu.com/mirrors/artixlinux/$repo/os/$arch
 Server = http://mirrors.redcorelinux.org/artixlinux/$repo/os/$arch
-
 # Tier 2: Good Fallbacks (Rest of Europe)
 Server = https://mirrors.dotsrc.org/artix-linux/repos/$repo/os/$arch
 Server = https://mirror.group.one/artix/$repo/os/$arch
@@ -68,12 +63,10 @@ Server = https://ftp.cc.uoc.gr/mirrors/linux/artixlinux/$repo/os/$arch
 Server = https://artix.sakamoto.pl/$repo/os/$arch
 Server = https://hitman.go.ro/mirror/artix-linux/$repo/os/$arch
 Server = https://ftp.ludd.ltu.se/mirrors/artix/$repo/os/$arch
-
 # Tier 3: Moderate Latency (North & South America)
 Server = https://mirrors.rit.edu/artixlinux/$repo/os/$arch
 Server = https://artix.wheaton.edu/repos/$repo/os/$arch
 Server = https://mirror.clarkson.edu/artix-linux/repos/$repo/os/$arch
-Server = https://berkeley.edu
 Server = https://mirror.cs.odu.edu/artixlinux/$repo/os/$arch
 Server = https://mirror.akardam.net/artix/$repo/os/$arch
 Server = http://www.nylxs.com/mirror/repos/$repo/os/$arch
@@ -87,7 +80,6 @@ Server = https://artix-linux.mirrors.prairievoice.ca/$repo/os/$arch
 Server = https://artix.tuxmirrors.xyz/$repo/os/$arch
 Server = https://artix.nicolasbianconi.space/$repo/os/$arch
 Server = https://mirror1.cl.netactuate.com/artix/repos/$repo/os/$arch
-
 # Tier 4: Highest Latency (Asia & Oceania)
 Server = https://mirrors.tuna.tsinghua.edu.cn/artixlinux/$repo/os/$arch
 Server = https://mirrors.aliyun.com/artixlinux/$repo/os/$arch
@@ -103,4 +95,140 @@ Server = https://mirror.freedif.org/artix/$repo/os/$arch
 Server = https://mirrors.cloud.tencent.com/artixlinux/$repo/os/$arch
 Server = https://mirrors.nguyenhoang.cloud/artix-linux/$repo/os/$arch
 Server = https://mirror.meowsmp.net/artixlinux/$repo/os/$arch
-Server = https://mirror.aarnet.edu.au/pub/artix/$repo/os/$arch" > /etc/pacman.d/mirrorlist
+Server = https://mirror.aarnet.edu.au/pub/artix/$repo/os/$arch"
+EOF
+touch /etc/pacman.d/mirrorlist-arch
+cat << 'EOF' > /etc/pacman.d/mirrorlist-arch
+Server = http://archlinux.za.mirror.allworldit.com/archlinux/$repo/os/$arch
+Server = https://archlinux.za.mirror.allworldit.com/archlinux/$repo/os/$arch
+Server = http://za.mirrors.cicku.me/archlinux/$repo/os/$arch
+Server = https://za.mirrors.cicku.me/archlinux/$repo/os/$arch
+Server = https://johannesburg.mirror.pkgbuild.com/$repo/os/$arch
+Server = http://mirror.is.co.za/mirror/archlinux.org/$repo/os/$arch
+Server = http://archlinux.mirror.net.za/$repo/os/$arch
+Server = https://archlinux.mirror.net.za/$repo/os/$arch
+Server = http://mirrors.urbanwave.co.za/archlinux/$repo/os/$arch
+Server = https://mirrors.urbanwave.co.za/archlinux/$repo/os/$arch
+EOF
+
+cat << 'EOF' > /etc/pacman.d/cachyos-mirrorlist
+######################################################
+####                                              ####
+####        CachyOS Repository Mirrorlist         ####
+####                                              ####
+######################################################
+
+# --- TIER 1: GLOBAL CDN & LOWER LATENCY WESTERN EUROPE ---
+Server = https://cdn77.cachyos.org/repo/$arch/$repo
+Server = https://nl.mirror.cx/cachyos/repo/$arch/$repo
+Server = https://mirror.lesviallon.fr/cachy/repo/$arch/$repo
+Server = https://cachyos.next-works.it/repo/$arch/$repo
+Server = https://cachyos-mirror.m1k.cloud/repo/$arch/$repo
+
+# --- TIER 2: CENTRAL & NORTHERN EUROPE ---
+Server = https://at.cachyos.org/repo/$arch/$repo
+Server = https://mirror.mergedcloud.de/cachyos/repo/$arch/$repo
+Server = https://no.mirror.cx/cachyos/repo/$arch/$repo
+Server = https://mirror.zyner.org/mirror/cachyos/repo/$arch/$repo
+Server = https://mirror.hb9hil.org/cachyos/repo/$arch/$repo
+Server = https://cachyos.doridian.net/repo/$arch/$repo
+
+# --- TIER 3: NORTH AMERICA (USA & CANADA) ---
+Server = https://us.cachyos.org/repo/$arch/$repo
+Server = https://us-mnz.soulharsh007.dev/cachyos/repo/$arch/$repo
+Server = https://mirrors.lansing2600.org/cachyos/repo/$arch/$repo
+Server = https://cdn.lansing2600.org/cachyos/repo/$arch/$repo
+Server = https://ca.mirror.cx/cachyos/repo/$arch/$repo
+Server = https://mirror.allthingslinux.org/cachyos/repo/$arch/$repo
+
+# --- TIER 4: HIGHER LATENCY (RUSSIA, BANGLADESH, CHINA) ---
+Server = https://archlinux.gay/cachy/repo/$arch/$repo
+Server = https://mirror.jura12.ru/repo/$arch/$repo
+Server = https://mirror.cachy-arch.ru/cachyos/repo/$arch/$repo
+Server = https://wan.metrosg.ru/cachyos/repo/$arch/$repo
+Server = https://mirror.limda.net/cachy/repo/$arch/$repo
+Server = https://mirror.nju.edu.cn/cachyos/repo/$arch/$repo
+Server = https://mirrors.ustc.edu.cn/cachyos/repo/$arch/$repo
+
+# --- DISABLED UPSTREAM REPOSITORIES ---
+## Rerouted to mirror
+# Server = https://cdn.cachyos.org/repo/$arch/$repo
+## Germany, disabled due Netcup issues:
+# Server = https://mirror.cachyos.org/repo/$arch/$repo
+## India Mirror - Disabled due to installation issues
+# Server = https://mirror.albony.xyz/cachylinux/repo/$arch/$repo
+## France Mirror - Removed till sync issue is resolved
+# Server = https://mirror.truenetwork.ru/cachy/repo/$arch/$repo
+## Norway Mirror
+# Server = https://mirror.fast0ne.com/repo/$arch/$repo
+## South Korea Mirror
+# Server = https://mirror.funami.tech/cachy/repo/$arch/$repo
+## Germany Mirror
+# Server = https://de-nue.soulharsh007.dev/cachyos/repo/$arch/$repo
+## Hong Kong Mirror
+# Server = https://cachy-mirror.wtako.net/repo/$arch/$repo
+## Russia Mirror from Yandex
+# Server = https://mirror.yandex.ru/cachyos/repo/$arch/$repo
+EOF
+
+cat << 'EOF' > /etc/pacman.d/cachyos-v3-mirrorlist
+######################################################
+####                                              ####
+####     CachyOS Repository Mirrorlist (v3)       ####
+####                                              ####
+######################################################
+
+# --- TIER 1: GLOBAL CDN & LOWER LATENCY WESTERN EUROPE ---
+Server = https://cdn77.cachyos.org/repo/$arch_v3/$repo
+Server = https://nl.mirror.cx/cachyos/repo/$arch_v3/$repo
+Server = https://mirror.lesviallon.fr/cachy/repo/$arch_v3/$repo
+Server = https://cachyos.next-works.it/repo/$arch_v3/$repo
+Server = https://cachyos-mirror.m1k.cloud/repo/$arch_v3/$repo
+
+# --- TIER 2: CENTRAL & NORTHERN EUROPE ---
+Server = https://at.cachyos.org/repo/$arch_v3/$repo
+Server = https://mirror.mergedcloud.de/cachyos/repo/$arch_v3/$repo
+Server = https://no.mirror.cx/cachyos/repo/$arch_v3/$repo
+Server = https://mirror.zyner.org/mirror/cachyos/repo/$arch_v3/$repo
+Server = https://mirror.hb9hil.org/cachyos/repo/$arch_v3/$repo
+Server = https://cachyos.doridian.net/repo/$arch_v3/$repo
+
+# --- TIER 3: NORTH AMERICA (USA & CANADA) ---
+Server = https://us.cachyos.org/repo/$arch_v3/$repo
+Server = https://us-mnz.soulharsh007.dev/cachyos/repo/$arch_v3/$repo
+Server = https://mirrors.lansing2600.org/cachyos/repo/$arch_v3/$repo
+Server = https://cdn.lansing2600.org/cachyos/repo/$arch_v3/$repo
+Server = https://ca.mirror.cx/cachyos/repo/$arch_v3/$repo
+Server = https://mirror.allthingslinux.org/cachyos/repo/$arch_v3/$repo
+
+# --- TIER 4: HIGHER LATENCY (RUSSIA, BANGLADESH, CHINA) ---
+Server = https://archlinux.gay/cachy/repo/$arch_v3/$repo
+Server = https://mirror.jura12.ru/repo/$arch_v3/$repo
+Server = https://mirror.cachy-arch.ru/cachyos/repo/$arch_v3/$repo
+Server = https://wan.metrosg.ru/cachyos/repo/$arch_v3/$repo
+Server = https://mirror.limda.net/cachy/repo/$arch_v3/$repo
+Server = https://mirror.nju.edu.cn/cachyos/repo/$arch_v3/$repo
+Server = https://mirrors.ustc.edu.cn/cachyos/repo/$arch_v3/$repo
+
+# --- DISABLED UPSTREAM REPOSITORIES ---
+## Rerouted to mirror
+# Server = https://cdn.cachyos.org/repo/$arch_v3/$repo
+## Germany, disabled due Netcup issues:
+# Server = https://mirror.cachyos.org/repo/$arch_v3/$repo
+## India Mirror - Disabled due to installation issues
+# Server = https://mirror.albony.xyz/cachylinux/repo/$arch_v3/$repo
+## France Mirror - Removed till sync issue is resolved
+# Server = https://mirror.truenetwork.ru/cachy/repo/$arch_v3/$repo
+## Norway Mirror
+# Server = https://mirror.fast0ne.com/repo/$arch_v3/$repo
+## South Korea Mirror
+# Server = https://mirror.funami.tech/cachy/repo/$arch_v3/$repo
+## Germany Mirror
+# Server = https://de-nue.soulharsh007.dev/cachyos/repo/$arch_v3/$repo
+## Hong Kong Mirror
+# Server = https://cachy-mirror.wtako.net/repo/$arch_v3/$repo
+## Russia Mirror from Yandex
+# Server = https://mirror.yandex.ru/cachyos/repo/$arch_v3/$repo
+EOF
+
+Also change the [core] and [extra] repositories to use /etc/pacman.d/mirrorlist-arch. optionally do this to the [core-testing] and [extra-testing]. and [multilib] and [multilib]
