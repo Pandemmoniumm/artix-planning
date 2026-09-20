@@ -32,6 +32,8 @@ mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@cache /dev/vda2 /mnt
 
 mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@snapshots /dev/vda2 /mnt
 
+mount /dev/vda1 /mnt/boot/efi
+
 sv up chrony
 
 basestrap /mnt base base-devel runit elogind-runit linux-firmware btrfs-progs
