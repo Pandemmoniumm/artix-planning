@@ -6,17 +6,7 @@ mkfs.btrfs /dev/vda2
 
 mount /dev/vda2 /mnt
 
-btrfs subvolume create /dev/vda2 /mnt/@
-
-btrfs subvolume create /dev/vda2 /mnt/@home
-
-btrfs subvolume create /dev/vda2 /mnt/@cache
-
-btrfs subvolume create /dev/vda2 /mnt/@log
-
-btrfs subvolume create /dev/vda2 /mnt/@snapshots
-
-btrfs subvolume create /dev/vda2 /mnt/@tmp
+btrfs subvolume create /mnt/@ /mnt/@home /mnt/@cache /mnt/@log /mnt/@snapshots
 
 umount /mnt
 
@@ -30,13 +20,13 @@ mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@log /dev/vda2 /mnt/v
 
 mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@cache /dev/vda2 /mnt/var/cache
 
-mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@snapshots /dev/vda2 /mnt
+mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@snapshots /dev/vda2 /mnt/.snapshots
 
 mount /dev/vda1 /mnt/boot/efi
 
-sv up chrony
+dinitctl enable chrony
 
-basestrap /mnt base base-devel runit elogind-runit linux-firmware btrfs-progs
+basestrap -i /mnt base base-devel runit elogind-runit linux-firmware btrfs-progs nano
 
 fstabgen -U /mnt >> /mnt/etc/fstab
 
@@ -168,4 +158,18 @@ then run pacman -Sy linux-cachyos-bore linux-cachyos-headers
 
 after that is done i would comment out the cachyos repositories in /etc/pacman.conf as to stop potential problems later on. only uncomement them when it is time to update the kernel.
 
+pacman -S efibootmgr limine dhcpcd
+
+# Timeout in seconds before the default entry boots
+timeout: 5
+
+cat <<EOF > /boot/efi/EFI/boot/limine.conf
+# Root entry for Artix Linux
+/Artix Linux
+    protocol: linux
+    kernel_path: boot://(partuuid_of_your_root_or_boot)/vmlinuz-linux
+    initramfs_path: boot://(partuuid_of_your_root_or_boot)/initramfs-linux.img
+    cmdline: root=UUID=your-root-partition-uuid rw
+EOF
+note: use blkid to view partition id's
 
