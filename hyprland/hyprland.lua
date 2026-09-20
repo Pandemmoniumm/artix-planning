@@ -5,11 +5,11 @@ require("animations")
 require("winrules")
 require("misc")
 require("perms")
-require("~/.config/hypr/keybinds.lua")
+require("keybinds")
 require("autostart")
---for general hyprland colors
-require("themes.catppuccin-mocha")
+--Colors
+colors = require("dark")
 base = colors.base
-surface0_ee = rgba(colors.surface0Alpha .. 'ee')
+surface0_ee = "rgba(" .. colors.surface0Alpha .. "ee)"
 -- For Noctalia Color templates
 require("noctalia").apply_theme()
