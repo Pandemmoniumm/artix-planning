@@ -19,6 +19,7 @@ sv up chrony
 basestrap /mnt base base-devel runit elogind-runit linux-firmware
 fstabgen -U /mnt >> /mnt/etc/fstab
 artix-chroot /mnt
+pacman -S nano
 ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
 hwclock --systohc
 sudo pacman-key --recv-keys F3B607488DB35A47 --keyserver keyserver.ubuntu.com
