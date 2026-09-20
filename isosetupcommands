@@ -1,34 +1,61 @@
 cfdisk
+
 mkfs.fat -F 32 /dev/vda1
+
 mkfs.btrfs /dev/vda2
+
 mount /dev/vda2 /mnt
+
 btrfs subvolume create /dev/vda2 /mnt/@
+
 btrfs subvolume create /dev/vda2 /mnt/@home
+
 btrfs subvolume create /dev/vda2 /mnt/@cache
+
 btrfs subvolume create /dev/vda2 /mnt/@log
+
 btrfs subvolume create /dev/vda2 /mnt/@snapshots
+
 btrfs subvolume create /dev/vda2 /mnt/@tmp
+
 umount /mnt
+
 mkdir -p /mnt/home /mnt/var /mnt/var/cache /mnt/var/log /mnt/var/tmp /mnt/.snapshots
+
 mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@ /dev/vda2 /mnt
+
 mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@home /dev/vda2 /mnt/home
+
 mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@log /dev/vda2 /mnt/var/log
+
 mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@cache /dev/vda2 /mnt/var/cache
+
 mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@snapshots /dev/vda2 /mnt
+
 sv up chrony
-basestrap /mnt base base-devel runit elogind-runit linux-firmware
+
+basestrap /mnt base base-devel runit elogind-runit linux-firmware btrfs-progs
+
 fstabgen -U /mnt >> /mnt/etc/fstab
+
 artix-chroot /mnt
+
 pacman -S nano
+
 ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
+
 hwclock --systohc
+
 sudo pacman-key --recv-keys F3B607488DB35A47 --keyserver keyserver.ubuntu.com
+
 sudo pacman-key --lsign-key F3B607488DB35A47
+
 sudo pacman -U 'https://mirror.cachyos.org/repo/x86_64/cachyos/cachyos-keyring-20240331-1-any.pkg.tar.zst' \
 'https://mirror.cachyos.org/repo/x86_64/cachyos/cachyos-mirrorlist-27-1-any.pkg.tar.zst' \
 'https://mirror.cachyos.org/repo/x86_64/cachyos/cachyos-v3-mirrorlist-27-1-any.pkg.tar.zst' \
 'https://mirror.cachyos.org/repo/x86_64/cachyos/cachyos-v4-mirrorlist-27-1-any.pkg.tar.zst' \
 'https://mirror.cachyos.org/repo/x86_64/cachyos/pacman-7.1.0.r9.g54d9411-4-x86_64.pkg.tar.zst'
+
 Add the following repositories to /etc/pacman.conf above existing arch repositories:
 [cachyos-v3]
 Include = /etc/pacman.d/cachyos-v3-mirrorlist
@@ -36,6 +63,7 @@ Include = /etc/pacman.d/cachyos-v3-mirrorlist
 Include = /etc/pacman.d/cachyos-v3-mirrorlist
 [cachyos-extra-v3]
 Include = /etc/pacman.d/cachyos-v3-mirrorlist
+
 cat << 'EOF' > /etc/pacman.d/mirrorlist
 Tier 1: Best Routing (Western & Southern Europe via Undersea Cables)
 Server = https://mirror.vinehost.net/artix-linux/$repo/os/$arch
@@ -71,7 +99,7 @@ Server = https://mirror.cs.odu.edu/artixlinux/$repo/os/$arch
 Server = https://mirror.akardam.net/artix/$repo/os/$arch
 Server = http://www.nylxs.com/mirror/repos/$repo/os/$arch
 Server = https://gnlug.org/pub/artix-linux/$repo/os/$arch
-Server = https://mirror.sanin.dev/artix-linux/$repo/os/$arch
+Server = https://mThe Ultimate Lazy Hack: Automate the Commentingirror.sanin.dev/artix-linux/$repo/os/$arch
 Server = https://mirrors.lug.mtu.edu/artixlinux/$repo/os/$arch
 Server = https://mirrors.cicku.me/artix/$repo/os/$arch
 Server = https://mirror.lug.umbc.edu/artix-linux/$repo/os/$arch
@@ -111,124 +139,31 @@ Server = http://mirrors.urbanwave.co.za/archlinux/$repo/os/$arch
 Server = https://mirrors.urbanwave.co.za/archlinux/$repo/os/$arch
 EOF
 
-cat << 'EOF' > /etc/pacman.d/cachyos-mirrorlist
-######################################################
-####                                              ####
-####        CachyOS Repository Mirrorlist         ####
-####                                              ####
-######################################################
+make sure to add the system, world, and galazy repositories like this:
+[system]
+Include = /etc/pacman.d/mirrorlist
 
-# --- TIER 1: GLOBAL CDN & LOWER LATENCY WESTERN EUROPE ---
-Server = https://cdn77.cachyos.org/repo/$arch/$repo
-Server = https://nl.mirror.cx/cachyos/repo/$arch/$repo
-Server = https://mirror.lesviallon.fr/cachy/repo/$arch/$repo
-Server = https://cachyos.next-works.it/repo/$arch/$repo
-Server = https://cachyos-mirror.m1k.cloud/repo/$arch/$repo
+[world]
+Include = /etc/pacman.d/mirrorlist
 
-# --- TIER 2: CENTRAL & NORTHERN EUROPE ---
-Server = https://at.cachyos.org/repo/$arch/$repo
-Server = https://mirror.mergedcloud.de/cachyos/repo/$arch/$repo
-Server = https://no.mirror.cx/cachyos/repo/$arch/$repo
-Server = https://mirror.zyner.org/mirror/cachyos/repo/$arch/$repo
-Server = https://mirror.hb9hil.org/cachyos/repo/$arch/$repo
-Server = https://cachyos.doridian.net/repo/$arch/$repo
+[galaxy]
+Include = /etc/pacman.d/mirrorlist
 
-# --- TIER 3: NORTH AMERICA (USA & CANADA) ---
-Server = https://us.cachyos.org/repo/$arch/$repo
-Server = https://us-mnz.soulharsh007.dev/cachyos/repo/$arch/$repo
-Server = https://mirrors.lansing2600.org/cachyos/repo/$arch/$repo
-Server = https://cdn.lansing2600.org/cachyos/repo/$arch/$repo
-Server = https://ca.mirror.cx/cachyos/repo/$arch/$repo
-Server = https://mirror.allthingslinux.org/cachyos/repo/$arch/$repo
+make sure to only use mirrorlist-arch if you sepcifically want to use arch repositoires, such as extra or multilib.
 
-# --- TIER 4: HIGHER LATENCY (RUSSIA, BANGLADESH, CHINA) ---
-Server = https://archlinux.gay/cachy/repo/$arch/$repo
-Server = https://mirror.jura12.ru/repo/$arch/$repo
-Server = https://mirror.cachy-arch.ru/cachyos/repo/$arch/$repo
-Server = https://wan.metrosg.ru/cachyos/repo/$arch/$repo
-Server = https://mirror.limda.net/cachy/repo/$arch/$repo
-Server = https://mirror.nju.edu.cn/cachyos/repo/$arch/$repo
-Server = https://mirrors.ustc.edu.cn/cachyos/repo/$arch/$repo
+echo "af_ZA.UTF-8 UTF-8  
+af_ZA ISO-8859-1" > /etc/locale.gen
 
-# --- DISABLED UPSTREAM REPOSITORIES ---
-## Rerouted to mirror
-# Server = https://cdn.cachyos.org/repo/$arch/$repo
-## Germany, disabled due Netcup issues:
-# Server = https://mirror.cachyos.org/repo/$arch/$repo
-## India Mirror - Disabled due to installation issues
-# Server = https://mirror.albony.xyz/cachylinux/repo/$arch/$repo
-## France Mirror - Removed till sync issue is resolved
-# Server = https://mirror.truenetwork.ru/cachy/repo/$arch/$repo
-## Norway Mirror
-# Server = https://mirror.fast0ne.com/repo/$arch/$repo
-## South Korea Mirror
-# Server = https://mirror.funami.tech/cachy/repo/$arch/$repo
-## Germany Mirror
-# Server = https://de-nue.soulharsh007.dev/cachyos/repo/$arch/$repo
-## Hong Kong Mirror
-# Server = https://cachy-mirror.wtako.net/repo/$arch/$repo
-## Russia Mirror from Yandex
-# Server = https://mirror.yandex.ru/cachyos/repo/$arch/$repo
-EOF
+locale-gen
 
-cat << 'EOF' > /etc/pacman.d/cachyos-v3-mirrorlist
-######################################################
-####                                              ####
-####     CachyOS Repository Mirrorlist (v3)       ####
-####                                              ####
-######################################################
+echo "export LANG=en_US.UTF-8
+ export LC_COLLATE="C"" > /etc/locale.conf
 
-# --- TIER 1: GLOBAL CDN & LOWER LATENCY WESTERN EUROPE ---
-Server = https://cdn77.cachyos.org/repo/$arch_v3/$repo
-Server = https://nl.mirror.cx/cachyos/repo/$arch_v3/$repo
-Server = https://mirror.lesviallon.fr/cachy/repo/$arch_v3/$repo
-Server = https://cachyos.next-works.it/repo/$arch_v3/$repo
-Server = https://cachyos-mirror.m1k.cloud/repo/$arch_v3/$repo
+next, edit the /etc/mkinitcpio.conf file. find the hooks = ( ) line and change whatever is there to the following:
+HOOKS=(base autodetect microcode modconf kms keyboard keymap block filesystems fsck)
 
-# --- TIER 2: CENTRAL & NORTHERN EUROPE ---
-Server = https://at.cachyos.org/repo/$arch_v3/$repo
-Server = https://mirror.mergedcloud.de/cachyos/repo/$arch_v3/$repo
-Server = https://no.mirror.cx/cachyos/repo/$arch_v3/$repo
-Server = https://mirror.zyner.org/mirror/cachyos/repo/$arch_v3/$repo
-Server = https://mirror.hb9hil.org/cachyos/repo/$arch_v3/$repo
-Server = https://cachyos.doridian.net/repo/$arch_v3/$repo
+then run pacman -Sy linux-cachyos-bore linux-cachyos-headers
 
-# --- TIER 3: NORTH AMERICA (USA & CANADA) ---
-Server = https://us.cachyos.org/repo/$arch_v3/$repo
-Server = https://us-mnz.soulharsh007.dev/cachyos/repo/$arch_v3/$repo
-Server = https://mirrors.lansing2600.org/cachyos/repo/$arch_v3/$repo
-Server = https://cdn.lansing2600.org/cachyos/repo/$arch_v3/$repo
-Server = https://ca.mirror.cx/cachyos/repo/$arch_v3/$repo
-Server = https://mirror.allthingslinux.org/cachyos/repo/$arch_v3/$repo
+after that is done i would comment out the cachyos repositories in /etc/pacman.conf as to stop potential problems later on. only uncomement them when it is time to update the kernel.
 
-# --- TIER 4: HIGHER LATENCY (RUSSIA, BANGLADESH, CHINA) ---
-Server = https://archlinux.gay/cachy/repo/$arch_v3/$repo
-Server = https://mirror.jura12.ru/repo/$arch_v3/$repo
-Server = https://mirror.cachy-arch.ru/cachyos/repo/$arch_v3/$repo
-Server = https://wan.metrosg.ru/cachyos/repo/$arch_v3/$repo
-Server = https://mirror.limda.net/cachy/repo/$arch_v3/$repo
-Server = https://mirror.nju.edu.cn/cachyos/repo/$arch_v3/$repo
-Server = https://mirrors.ustc.edu.cn/cachyos/repo/$arch_v3/$repo
 
-# --- DISABLED UPSTREAM REPOSITORIES ---
-## Rerouted to mirror
-# Server = https://cdn.cachyos.org/repo/$arch_v3/$repo
-## Germany, disabled due Netcup issues:
-# Server = https://mirror.cachyos.org/repo/$arch_v3/$repo
-## India Mirror - Disabled due to installation issues
-# Server = https://mirror.albony.xyz/cachylinux/repo/$arch_v3/$repo
-## France Mirror - Removed till sync issue is resolved
-# Server = https://mirror.truenetwork.ru/cachy/repo/$arch_v3/$repo
-## Norway Mirror
-# Server = https://mirror.fast0ne.com/repo/$arch_v3/$repo
-## South Korea Mirror
-# Server = https://mirror.funami.tech/cachy/repo/$arch_v3/$repo
-## Germany Mirror
-# Server = https://de-nue.soulharsh007.dev/cachyos/repo/$arch_v3/$repo
-## Hong Kong Mirror
-# Server = https://cachy-mirror.wtako.net/repo/$arch_v3/$repo
-## Russia Mirror from Yandex
-# Server = https://mirror.yandex.ru/cachyos/repo/$arch_v3/$repo
-EOF
-
-Also change the [core] and [extra] repositories to use /etc/pacman.d/mirrorlist-arch. optionally do this to the [core-testing] and [extra-testing]. and [multilib] and [multilib]
