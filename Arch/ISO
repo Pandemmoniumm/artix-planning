@@ -26,11 +26,11 @@ mount /dev/vda1 /mnt/boot/efi
 
 dinitctl enable chrony
 
-basestrap -i /mnt base base-devel runit elogind-runit linux-firmware btrfs-progs nano
+basestrap /mnt linux-firmware amd-ucode base base-devel vim vi btrfs-progs
 
 fstabgen -U /mnt >> /mnt/etc/fstab
 
-artix-chroot /mnt
+arch-chroot /mnt
 
 pacman -S nano
 
