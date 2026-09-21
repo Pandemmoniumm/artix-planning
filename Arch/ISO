@@ -83,7 +83,7 @@ mkdir /boot/efi/EFI/BOOT
 
 cp /usr/share/limine/BOOTX64.EFI /boot/efi/EFI/BOOT/BOOTX64.EFI
 
-cat <<EOF > /boot/efi/EFI/boot/limine.conf
+cat <<EOF > /boot/efi/EFI/BOOT/limine.conf
 :Arch Linux
 protocol: linux
 kernel_path: boot:///vmlinuz-linux
