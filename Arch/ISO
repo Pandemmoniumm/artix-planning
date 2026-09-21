@@ -72,19 +72,23 @@ Include = /etc/pacman.d/cachyos-v3-mirrorlist
 [cachyos-extra-v3]
 Include = /etc/pacman.d/cachyos-v3-mirrorlist
 
+then change Architecture = auto to Architecture = x86_64 x86_64_v3
+optinally uncomment ILoveCandy,Color, and VerbosePkgProgress
+
 pacman -Syyuu linux-cachyos-bore linux-cachyos-headers
 
 pacman -S efibootmgr limine
 
-# Timeout in seconds before the default entry boots
-timeout: 5
+mkdir /boot/efi/EFI/BOOT
+
+cp /usr/share/limine/BOOTX64.EFI /boot/efi/EFI/BOOT/BOOTX64.EFI
 
 cat <<EOF > /boot/efi/EFI/boot/limine.conf
-/Arch Linux
-    protocol: linux
-    kernel_path: boot://(partuuid_of_your_root_or_boot)/vmlinuz-linux
-    initramfs_path: boot://(partuuid_of_your_root_or_boot)/initramfs-linux.img
-    cmdline: root=UUID=your-root-partition-uuid rw
+:Arch Linux
+protocol: linux
+kernel_path: boot:///vmlinuz-linux
+initramfs_path: boot:///initramfs-linux.img
+cmdline: root=UUID=YOUR_ACTUAL_ROOT_PARTITION_UUID rw
 EOF
 note: use blkid to view partition id's
 
