@@ -22,8 +22,12 @@ hl.config({
 		rounding = 0,
 		rounding_power = 2,
 
-		active_opacity = 1.0,
-		inactive_opacity = 1.0,
+		active_opacity = 0.93,
+		inactive_opacity = 0.85,
+		
+	
+		dim_inactive = true,
+		dim_strength = 0.15,
 
 		shadow = {
 			enabled = true,
@@ -34,11 +38,13 @@ hl.config({
 
 		blur = {
 			enabled = true,
-			size = 3,
-			passes = 1,
-			vibrancy = 0.1696,
+			size = 8,        
+			passes = 3,        
+			vibrancy = 0.2,   
+			new_optimizations = true, 
 		},
 	},
+
 })
 	hl.config({
 	dwindle = {
