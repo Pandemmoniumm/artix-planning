@@ -94,4 +94,7 @@ note: use blkid to view partition ids
 
 efibootmgr --create --disk /dev/vda --part 1 --loader /EFI/BOOT/BOOTX64.EFI --label "Linux This Way --->"
 
+useradd -M elliot
+usermod -aG wheel elliot
+vim /etc/sudoers
 
