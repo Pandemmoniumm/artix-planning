@@ -81,6 +81,8 @@ pacman -S efibootmgr grub
 
 grub-install --efi-directory --/boot/efi --bootloader-id="Linux this way --->" --target=x86_64-efi
 
+grub-mkconfig -o /boot/efi/boot/grub/grub.cfg
+
 useradd -M elliot
 
 usermod -aG wheel elliot
