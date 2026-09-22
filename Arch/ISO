@@ -73,7 +73,7 @@ Include = /etc/pacman.d/cachyos-v3-mirrorlist
 Include = /etc/pacman.d/cachyos-v3-mirrorlist
 
 then change Architecture = auto to Architecture = x86_64 x86_64_v3
-optinally uncomment ILoveCandy,Color, and VerbosePkgProgress
+optinally uncomment ILoveCandy,Color, and VerbosePkgLists
 
 pacman -Syyuu linux-cachyos-bore linux-cachyos-headers
 
