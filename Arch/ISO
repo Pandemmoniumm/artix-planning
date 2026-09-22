@@ -77,24 +77,13 @@ optinally uncomment ILoveCandy,Color, and VerbosePkgProgress
 
 pacman -Syyuu linux-cachyos-bore linux-cachyos-headers
 
-pacman -S efibootmgr limine
+pacman -S efibootmgr grub
 
-mkdir /boot/efi/EFI/BOOT
-
-cp /usr/share/limine/BOOTX64.EFI /boot/efi/EFI/BOOT/BOOTX64.EFI
-
-cat <<EOF > /boot/efi/EFI/BOOT/limine.conf
-:Just One More Click, and You are In!!!
-protocol: linux
-kernel_path: boot:///vmlinuz-linux
-initramfs_path: boot:///initramfs-linux.img
-cmdline: root=UUID=YOUR_ACTUAL_ROOT_PARTITION_UUID rw
-EOF
-note: use blkid to view partition ids
-
-efibootmgr --create --disk /dev/vda --part 1 --loader /EFI/BOOT/BOOTX64.EFI --label "Linux This Way --->"
+grub-install --efi-directory --/boot/efi --bootloader-id="Linux this way --->" --target=x86_64-efi
 
 useradd -M elliot
+
 usermod -aG wheel elliot
+
 vim /etc/sudoers
 
