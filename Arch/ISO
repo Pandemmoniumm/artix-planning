@@ -75,19 +75,11 @@ optinally uncomment ILoveCandy,Color, and VerbosePkgLists
 
 pacman -Syyuu linux-cachyos linux-cachyos-headers
 
-pacman -S efibootmgr limine
+pacman -S efibootmgr grub
 
-mkdir -p /boot/efi/EFI/arch-limine
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="Stellarity"
 
-cp /usr/share/limine/BOOTX64.EFI /boot/efi/EFI/arch-limine/
-
-efibootmgr \
-      --create \
-      --disk /dev/vda \
-      --part 1 \
-      --label "Arch" \
-      --loader '\EFI\arch-limine\BOOTX64.EFI' \
-      --unicode
+grub-mkconfig -o /boot/efi/grub/grub.cfg
 
 useradd -M elliot
 
