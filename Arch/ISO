@@ -10,8 +10,6 @@ btrfs subvolume create /mnt/@ /mnt/@home /mnt/@cache /mnt/@log /mnt/@snapshots
 
 umount /mnt
 
-mkdir -p /mnt/home /mnt/var /mnt/var/cache /mnt/var/log /mnt/var/tmp /mnt/.snapshots
-
 mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@ /dev/vda2 /mnt
 
 mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@home /dev/vda2 /mnt/home
@@ -75,13 +73,21 @@ Include = /etc/pacman.d/cachyos-v3-mirrorlist
 then change Architecture = auto to Architecture = x86_64 x86_64_v3
 optinally uncomment ILoveCandy,Color, and VerbosePkgLists
 
-pacman -Syyuu linux-cachyos-bore linux-cachyos-headers
+pacman -Syyuu linux-cachyos linux-cachyos-headers
 
-pacman -S efibootmgr grub
+pacman -S efibootmgr limine
 
-grub-install --efi-directory --/boot/efi --bootloader-id="Linux this way --->" --target=x86_64-efi
+mkdir -p /boot/efi/EFI/arch-limine
 
-grub-mkconfig -o /boot/efi/boot/grub/grub.cfg
+cp /usr/share/limine/BOOTX64.EFI /boot/efi/EFI/arch-limine/
+
+efibootmgr \
+      --create \
+      --disk /dev/vda \
+      --part 1 \
+      --label "Arch" \
+      --loader '\EFI\arch-limine\BOOTX64.EFI' \
+      --unicode
 
 useradd -M elliot
 
