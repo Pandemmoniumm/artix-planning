@@ -22,7 +22,7 @@ mount -o noatime,compress=zstd:3,space_cache=v2,ssd,subvol=@snapshots /dev/vda2 
 
 mount /dev/vda1 /mnt/boot/efi
 
-pacstrap /mnt linux-firmware amd-ucode base base-devel vim vi btrfs-progs
+pacstrap /mnt linux-firmware amd-ucode base base-devel vim vi btrfs-progs networkmanager
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
@@ -84,6 +84,8 @@ grub-mkconfig -o /boot/efi/grub/grub.cfg
 useradd -M elliot
 
 usermod -aG wheel elliot
+
+systemctl enable NetworkManager
 
 vim /etc/sudoers
 
