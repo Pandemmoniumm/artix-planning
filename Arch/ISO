@@ -26,7 +26,9 @@ pacstrap /mnt linux-firmware amd-ucode base base-devel vim vi btrfs-progs networ
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
-arch-chroot -S /mnt
+arch-chroot /mnt
+
+systemctl enable NetworkManager
 
 ln -sf /usr/share/zoneinfo/Africa/Johannesburg /etc/localtime
 
@@ -85,7 +87,7 @@ useradd -M elliot
 
 usermod -aG wheel elliot
 
-systemctl enable NetworkManager
+sudo find /var/lib/pacman/local/ -type f -name "desc" -exec sed -i '/^%INSTALLED_DB%$/,+2d' {} \;
 
 vim /etc/sudoers
 
