@@ -1,4 +1,3 @@
-hl.on("hyprland.start", function()
-	hl.exec_cmd("noctalia")
-	hl.exec_cmd("hyprpm reload -n")
+hl.on("hyprland.start", function ()
+    hl.exec_cmd("quickshell")
 end)
