@@ -2,7 +2,6 @@
 mainMod = "SUPER"
 terminal = "ghostty"
 fileManager = "yazi"
-ipc = "noctalia msg "
 browser = "firefox"
 
 --more precise resizing with use of submaps
@@ -24,10 +23,7 @@ end)
     hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
   -- Super + F to open File Manager
     hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(fileManager))
-  -- Super to open app launcher
-    hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"), { release = true })
-  -- Super + Tab to open window view
-    hl.bind(mainMod .. " + Tab", hl.dsp.exec_cmd(ipc .. "window-switcher"))
+  --Super + W to open browser
     hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser)) 
 -- MINIMIZING (Scratchpad functionality via Special Workspaces)
   -- Super + M to minimize focused window
@@ -35,14 +31,6 @@ end)
   -- Super + Shift + M to view minimized windows
     hl.bind(mainMod .. " + SHIFT + M", hl.dsp.workspace.toggle_special())
 	
--- MEDIA KEYS
-  -- Audio Controls (l = runs when locked, r = repeats when held)
-    hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. "volume-up"), { flags = "lr" })
-    hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. "volume-down"), { flags = "lr" })
-    hl.bind("XF86AudioMute",        hl.dsp.exec_cmd(ipc .. "volume-mute"), { flags = "l" })
-  -- Screen Brightness Controls (r = repeats when held)
-    hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd(ipc .. "brightness-up"), { flags = "r" })
-    hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"), { flags = "r" })
 
 -- WINDOW ACTIONS
   -- Super + C to close window
