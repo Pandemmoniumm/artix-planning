@@ -7,11 +7,8 @@
 -- Allows applications to bypass the compositor completely when fullscreened
 hl.env("WEBRTC_USE_PIPEWIRE", "1")
 
-
 --Performance optimizations
   hl.env("GL_THREADED_OPTIMIZATIONS", "1")
-  hl.env("__GL_MaxFramesAllowed", "1")
-  hl.env("WLR_DRM_NO_ATOMIC", "1")
 
 --Driver & GPU stuff
   hl.env("AMD_VULKAN_ICD", "RADV")
