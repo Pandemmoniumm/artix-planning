@@ -83,3 +83,14 @@ end
         float = true,
         match = { class = "^pavucontrol$" }
     })
+
+--Media Keys
+	-- Audio Control
+		hl.bind("", "XF86AudioRaiseVolume", "exec", "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")
+		hl.bind("", "XF86AudioLowerVolume", "exec", "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")		
+		hl.bind("", "XF86AudioMute", "exec", "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
+		hl.bind("", "XF86AudioMicMute", "exec", "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle")
+	-- Screen Brightness Control(make sure to install brightnessctl)
+		hl.bind("", "XF86MonBrightnessUp", "exec", "brightnessctl set +5%")
+		hl.bind("", "XF86MonBrightnessDown", "exec", "brightnessctl set 5%-")
+
