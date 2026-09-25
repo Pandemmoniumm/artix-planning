@@ -7,6 +7,6 @@ require("misc")
 require("keybinds")
 require("autostart")
 --Colors
-colors = require("dark")
+colors = require("colors/dark")
 base = colors.base
 surface0_ee = "rgba(" .. colors.surface0Alpha .. "ee)"
