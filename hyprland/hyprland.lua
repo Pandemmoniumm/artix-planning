@@ -4,7 +4,6 @@ require("input")
 require("animations")
 require("winrules")
 require("misc")
-require("perms")
 require("keybinds")
 require("autostart")
 --Colors
