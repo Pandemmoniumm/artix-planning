@@ -25,7 +25,7 @@ end)
     hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(fileManager))
   --Super + W to open browser
     hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser)) 
--- MINIMIZING (Scratchpad functionality via Special Workspaces)
+-- minimizing
   -- Super + M to minimize focused window
     hl.bind(mainMod .. " + M", hl.dsp.window.move({ workspace = "special" }))
   -- Super + Shift + M to view minimized windows
@@ -78,8 +78,7 @@ for i = 1, 9 do
         hl.bind(mainMod .. " + SHIFT + " .. ws, hl.dsp.window.move({ workspace = ws }))
 end
 
--- FLOATING RULES
-  -- Fixed syntax to match modern table-driven window rules
+-- FLOATING RULES4
     hl.window_rule({
         float = true,
         match = { class = "^pavucontrol$" }
