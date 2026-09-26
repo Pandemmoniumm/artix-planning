@@ -1,0 +1,39 @@
+{
+  // Size of bar & position
+  "position": "top",
+  "height": 34,
+  "spacing": 30,
+
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-center": [
+    "clock"
+  ],
+
+  "modules-right": [
+    "pulseaudio",
+    "cpu",
+    "memory",
+    "network"
+  ],
+
+  //======================\\
+  // MODULE CONFIGURATIONS\\
+  //======================\\
+  "clock": {
+    "format": "{:%H:%M:%S}",
+    "interval": 1
+  },
+  "cpu": {
+    "format": "CPU: {}%",
+    "interval": 1
+  },
+  "memory": {
+    "format": "Memory: {percentage}%",
+    "tooltip-format": "Available: {avail}GiB\nUsed: {used}GiB\nTotal: {total}GiB",
+    "interval": 1
+  }
+}
+

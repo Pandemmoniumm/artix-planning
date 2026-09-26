@@ -1,0 +1,13 @@
+/*====================*/
+/*   Import Colors    */
+/*====================*/
+@import "colors.css";
+
+/*========================*/
+/*       Waybar           */
+/*========================*/
+window#waybar {
+    background-color: @base;
+    color: @text;
+    border-bottom: 2px solid @surface1;
+  }
