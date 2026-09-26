@@ -12,7 +12,7 @@ hl.env("WEBRTC_USE_PIPEWIRE", "1")
 
 --Driver & GPU stuff
   hl.env("AMD_VULKAN_ICD", "RADV")
-    --FINALLY FIGURED OUT HOW TO ENABLE AV1! WHOOOOOO
+  --Enforce drivers for av1 decoding
       hl.env("LIBVA_DRIVER_NAME", "radeonsi")
 -- Forces hardware acceleration for video encoding/decoding inside applications
 hl.env("VDPAU_DRIVER", "radeonsi")
